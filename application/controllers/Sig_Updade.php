@@ -11,7 +11,6 @@ class Sig_Updade extends CI_Controller
 		// code...
 		parent::__construct();
 	}
-/html/dgpc/application/modules/crons/controllers
 
 	public function index($value='')
 	{

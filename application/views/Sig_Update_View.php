@@ -4,19 +4,25 @@
 <meta charset=utf-8 />
 <title>Geolocation</title>
     <!-- Bootstrap -->
-<link href="<?= base_url() ?>assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="<?=base_url()?>assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-<script src='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js'></script>
-<link href='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.css' rel='stylesheet' />
+<!-- <script src='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js'></script> -->
+<script src='<?=base_url()?>assets/map/js/mapbox.js'></script>
+<!-- <link href='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.css' rel='stylesheet' /> -->
+<link href='<?=base_url()?>assets/map/css/mapbox.css' rel='stylesheet' />
+
 <style>
   body { margin:0; padding:0; }
-#map { position: absolute; top: 10px; bottom: 0; width: 100%; height: 700px; 
+#map { position: absolute; top: 10px; bottom: 0; width: 100%; height: 700px; }
 </style>
 
 
-<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.4.10/leaflet.draw.css' rel='stylesheet' />
-<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.4.10/leaflet.draw.js'></script>
-<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-geodesy/v0.1.0/leaflet-geodesy.js'></script>
+<!-- <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.4.10/leaflet.draw.css' rel='stylesheet' /> -->
+<link href='<?=base_url()?>assets/map/css/leaflet.draw.css' rel='stylesheet' />
+<!-- <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.4.10/leaflet.draw.js'></script> -->
+<script src='<?=base_url()?>assets/map/js/leaflet.draw.js'></script>
+<!-- <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-geodesy/v0.1.0/leaflet-geodesy.js'></script> -->
+<script src='<?=base_url()?>assets/map/js/leaflet-geodesy.js'></script>
 </head>
 <body>
 
@@ -38,18 +44,18 @@ pre.ui-coordinates {
   <div class="col-md-9">
 
     <div id='map'></div>
-  </div>  
+  </div>
   <div class="col-md-3" >
     <div class="col-md-12">
     <div class="col-md-6">
-       <a href='#' id='geolocate' class='btn btn-info'>Localise moi</a>  
+       <a href='#' id='geolocate' class='btn btn-info'>Localise moi</a>
     </div>
     <div class="col-md-6">
-       <a href='#' onclick="location.reload();" class='btn btn-success'>Actualiser la page</a>  
+       <a href='#' onclick="location.reload();" class='btn btn-success'>Actualiser la page</a>
     </div>
     <div class="col-md-6">
-        <pre id='coordinates' class='ui-coordinates'></pre> 
-    </div>    
+        <pre id='coordinates' class='ui-coordinates'></pre>
+    </div>
     </div>
     <div class="col-md-6" >
         <p  id="polygone_dessiner"></p>
@@ -57,7 +63,7 @@ pre.ui-coordinates {
     <div class="col-md-6" >
         <p  id="polygone_dessiner_2"></p>
     </div>
-  </div> 
+  </div>
 </div>
 
 <script type="text/javascript">
@@ -124,7 +130,7 @@ map.on('locationerror', function() {
     geolocate.innerHTML = 'La position n\'a pas pu être trouvée';
 });
 //affichage des donnees des provinces
-<?= $limites ?>
+<?=$limites?>
 
 var coordinates = document.getElementById('coordinates');
 
@@ -147,8 +153,8 @@ function ondragend() {
     var m = marker.getLatLng();
 
 
-    
-    
+
+
     geocoder.reverseQuery({lat: m.lat, lng: m.lng}, callback);
 
     function callback(err,data)
@@ -156,7 +162,7 @@ function ondragend() {
       //console.log(data.features[0].text);
       // console.log(data.features[0].place_name+ '<br>Latitude: ' + m.lat + '<br />Longitude: ' + m.lng);
       coordinates.innerHTML =data.features[0].place_name+ '<br>Latitude: ' + m.lat + '<br />Longitude: ' + m.lng;
-     
+
     }
 
 
@@ -198,7 +204,7 @@ function showPolygonArea(e) {
   document.getElementById('polygone_dessiner').innerHTML='Polygone('+(LGeo.area(e.layer) / 1000000).toFixed(2) + ' km<sup>2</sup>'+') <br>'+JSON.stringify(e.layer.editing.latlngs)
   var pol =JSON.stringify(e.layer.editing.latlngs)
           //envoi du point recuperer sur le controller
-        $.post("<?= base_url('Sig_Updade/enregistrer_polygone_dessiner') ?>",
+        $.post("<?=base_url('Sig_Updade/enregistrer_polygone_dessiner')?>",
         {
             mypolygone:pol
 
@@ -208,13 +214,13 @@ function showPolygonArea(e) {
          document.getElementById('polygone_dessiner_2').innerHTML =data
          location.reload();
         // console.log(data)
-        }); 
+        });
 
 }
 //dessiner le polygone
 
 var latlngss = [
-<?= $mes_polygon ?>
+<?=$mes_polygon?>
 ];
 var polygon = L.polygon(latlngss, {color: 'red'}).addTo(map);
 
@@ -232,9 +238,9 @@ map.addEventListener('mousemove', (e) => {
 
 </script>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="<?= base_url() ?>assets/bootstrap/js/jquery.min.js"></script>
+    <!-- jQuery (necessary for Bootstrap ' s JavaScript plugins) -->
+    <script src="<?=base_url()?>assets/bootstrap/js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="<?= base_url() ?>assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<?=base_url()?>assets/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

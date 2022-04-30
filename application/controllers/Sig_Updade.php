@@ -102,6 +102,13 @@ class Sig_Updade extends CI_Controller
 
 		
 	}
+	public function traceRoute() {
+
+		$data=array();
+
+		$this->load->view('Sig_UpdateTroure_View',$data);
+
+		}
 
 
 }

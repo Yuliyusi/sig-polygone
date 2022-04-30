@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset=utf-8 />
-<title>Geolocation</title>
+<title>SIG</title>
     <!-- Bootstrap -->
 <link href="<?=base_url()?>assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
@@ -53,6 +53,8 @@ pre.ui-coordinates {
     <div class="col-md-6">
        <a href='#' onclick="location.reload();" class='btn btn-success'>Actualiser la page</a>
     </div>
+
+
     <div class="col-md-6">
         <pre id='coordinates' class='ui-coordinates'></pre>
     </div>
@@ -62,7 +64,12 @@ pre.ui-coordinates {
     </div>
     <div class="col-md-6" >
         <p  id="polygone_dessiner_2"></p>
+        <p id="demo"></p>
     </div>
+
+    <div class="col-md-12">
+       <a href='<?= base_url('Sig_Updade/traceRoute')?>' id='' class='alert alert-warning'>Trouver le meilleur itinéraire</a>
+    </div>		
   </div>
 </div>
 
@@ -236,6 +243,20 @@ map.addEventListener('mousemove', (e) => {
 
   });
 
+</script>
+
+<script>
+      const myInterval = setInterval(myTimer, 5000);
+
+      function myTimer() {
+        const date = new Date();
+        document.getElementById("demo").innerHTML = date.toLocaleTimeString();
+        //console.log(map.locate());
+      }
+
+      function myStopFunction() {
+        clearInterval(myInterval);
+      }
 </script>
 
     <!-- jQuery (necessary for Bootstrap ' s JavaScript plugins) -->

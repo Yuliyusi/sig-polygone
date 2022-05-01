@@ -46,7 +46,13 @@ pre.ui-coordinates {
     <div id='map'></div>
   </div>
   <div class="col-md-3" >
+		<br>
+	<div style="" class="col-md-12">
+       <a href='<?= base_url('Sig_Updade/traceRoute')?>' id='' class='alert alert-warning'>Trouver le meilleur itinéraire</a>
+    </div>
+		
     <div class="col-md-12">
+		<br>
     <div class="col-md-6">
        <a href='#' id='geolocate' class='btn btn-info'>Localise moi</a>
     </div>
@@ -67,9 +73,7 @@ pre.ui-coordinates {
         <p id="demo"></p>
     </div>
 
-    <div class="col-md-12">
-       <a href='<?= base_url('Sig_Updade/traceRoute')?>' id='' class='alert alert-warning'>Trouver le meilleur itinéraire</a>
-    </div>		
+		
   </div>
 </div>
 
@@ -101,7 +105,7 @@ var myLayer = L.mapbox.featureLayer().addTo(map);
 // See this chart of compatibility for details:
 // http://caniuse.com/#feat=geolocation
 if (!navigator.geolocation) {
-    geolocate.innerHTML = 'Geolocation is not available';
+    geolocate.innerHTML = 'La géolocalisation n\'est pas disponible';
 } else {
     geolocate.onclick = function (e) {
         e.preventDefault();
@@ -176,7 +180,7 @@ function ondragend() {
 
 }
 
-//dessiner le polygone
+//dessiner le polygone ou ligne ou cercle
 
 var featureGroup = L.featureGroup().addTo(map);
 
@@ -245,7 +249,7 @@ map.addEventListener('mousemove', (e) => {
 
 </script>
 
-<script>
+<!-- <script>
       const myInterval = setInterval(myTimer, 5000);
 
       function myTimer() {
@@ -257,7 +261,7 @@ map.addEventListener('mousemove', (e) => {
       function myStopFunction() {
         clearInterval(myInterval);
       }
-</script>
+</script> -->
 
     <!-- jQuery (necessary for Bootstrap ' s JavaScript plugins) -->
     <script src="<?=base_url()?>assets/bootstrap/js/jquery.min.js"></script>

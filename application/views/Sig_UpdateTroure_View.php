@@ -49,19 +49,20 @@
 
       #map {
         position: absolute;
-        top: 0;
+        top: 50px;
         bottom: 0;
         width: 100%;
+				height: 700px;
       }
 
       .sidebar {
         position: absolute;
         margin: 20px 20px 30px 20px;
         width: 25%;
-        top: 0;
+        top: 50px;
         bottom: 0;
         padding: 20px;
-        background-color: #fff;
+        background-color: #ff9;
         overflow-y: scroll;
       }
 
@@ -99,6 +100,15 @@
   </head>
 
   <body>
+	<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">
+        SIG
+			</a>
+    </div>
+  </div>
+</nav>
     <div id="map"></div>
     <div class="sidebar">
 	<span style="float:right"><a class="alert alert-info" href='<?= base_url('Sig_Updade')?>'>Quitter</a></span>
@@ -115,6 +125,21 @@
         center: [29.36782,-3.36040], // Specify the starting position [lng, lat]
         zoom: 13 // Specify the starting zoom
       });
+
+			// Add geolocate control to the map.
+			map.addControl(
+			new mapboxgl.GeolocateControl({
+			positionOptions: {
+			enableHighAccuracy: true
+			},
+			// When active the map will receive updates to the device's location as it changes.
+			trackUserLocation: true,
+			// Draw an arrow next to the location dot to indicate which direction the device is heading.
+			showUserHeading: true
+			})
+			);
+
+
 
       const directions = new MapboxDirections({
         accessToken: mapboxgl.accessToken,

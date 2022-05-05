@@ -109,7 +109,14 @@ class Sig_Updade extends CI_Controller
 		$this->load->view('Sig_UpdateTroure_View',$data);
 
 		}
+public function enregistrer_point(Type $var = null)
+{
+	# code...
+	$LAT=$this->input->post('Lat');
+	$LON=$this->input->post('LON');
 
+	echo $LAT."".$LON;
+}
 
 }
 

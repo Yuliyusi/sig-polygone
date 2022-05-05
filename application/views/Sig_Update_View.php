@@ -39,9 +39,17 @@ pre.ui-coordinates {
   border-radius:3px;
   }
 </style>
-
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">
+				SIG
+			</a>
+    </div>
+  </div>
+</nav>
 <div class="col-md-12">
-  <div class="col-md-9">
+  <div class="col-md-12">
 
     <div id='map'></div>
   </div>
@@ -56,9 +64,9 @@ pre.ui-coordinates {
     <div class="col-md-6">
        <a href='#' id='geolocate' class='btn btn-info'>Localise moi</a>
     </div>
-    <div class="col-md-6">
+    <!-- <div class="col-md-6">
        <a href='#' onclick="location.reload();" class='btn btn-success'>Actualiser la page</a>
-    </div>
+    </div> -->
 
 
     <div class="col-md-6">
@@ -94,7 +102,7 @@ window.addEventListener("online", (event) => {
 L.mapbox.accessToken = 'pk.eyJ1IjoiY2Flc2FyMiIsImEiOiJjazNzaW5sNDcwNjBmM2NsZnF4N3dmdW1tIn0.-IuuEG4L2f33CQdxVic6Yw';
 var geolocate = document.getElementById('geolocate');
 var map = L.mapbox.map('map')
-   .setView([-3.4281480098738797,29.9256355062397], 9)
+   .setView([-3.3731739,29.3711047], 9)
   .addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'));
 
 var myLayer = L.mapbox.featureLayer().addTo(map);
@@ -107,26 +115,26 @@ var myLayer = L.mapbox.featureLayer().addTo(map);
 if (!navigator.geolocation) {
     geolocate.innerHTML = 'La géolocalisation n\'est pas disponible';
 } else {
-    geolocate.onclick = function (e) {
-        e.preventDefault();
-        e.stopPropagation();
+    geolocate.onclick = function (ee) {
+        ee.preventDefault();
+        ee.stopPropagation();
         map.locate();
     };
 }
 
 // Une fois que nous avons une position, zoomez et centrez la carte dessus, et ajoutez un seul marqueur.
-map.on('locationfound', function(e) {
-    map.fitBounds(e.bounds);
+map.on('locationfound', function(ee) {
+    map.fitBounds(ee.bounds);
 
     myLayer.setGeoJSON({
         type: 'Feature',
         geometry: {
             type: 'Point',
-            coordinates: [e.latlng.lng, e.latlng.lat]
+            coordinates: [ee.latlng.lng, ee.latlng.lat]
         },
         properties: {
             'title': 'Je suis ici!',
-            'marker-color': '#ff8888',
+            'marker-color': '#ff8882',
             'marker-symbol': 'star'
         }
     });
@@ -233,7 +241,7 @@ function showPolygonArea(e) {
 var latlngss = [
 <?=$mes_polygon?>
 ];
-var polygon = L.polygon(latlngss, {color: 'red'}).addTo(map);
+var polygon = L.polygon(latlngss, {color: '#808080'}).addTo(map);
 
 
 //Evenement pour afficher les endroits en fonction du mouvement du souris
@@ -243,6 +251,9 @@ map.addEventListener('mousemove', (e) => {
     function callback(err,data)
      {
       coordinates.innerHTML =data.features[0].place_name+ '<br>Latitude: ' + e.latlng.lat + '<br />Longitude: ' + e.latlng.lng;
+			$.post('<?= base_url('Sig_Updade/enregistrer_point') ?>',{Lat:e.latlng.lat,LON:e.latlng.lng},function(data) {
+          console.log(e)
+			})
      }
 
   });
